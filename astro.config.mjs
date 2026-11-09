@@ -5,6 +5,7 @@ import preact from '@astrojs/preact';
 
 // https://astro.build/config
 export default defineConfig ({
-  site: 'https://strong-solstice.netlify.app/',
+  site: 'https://esealli.github.io/',
+  base: '/ese-async',
   integrations: [preact()],
 });

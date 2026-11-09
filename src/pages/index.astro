@@ -1,10 +1,114 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
 import Greeting from "../components/Greeting";
-const pageTitle = "Home Page";
+import { getPosts } from "../lib/posts";
+
+const posts = getPosts();
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-  <h2>My awesome blog subtitle</h2>
-  <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
+<BaseLayout pageTitle="Ese Alli" showTitle={false}>
+  <div class="home">
+    <aside class="bio">
+      <h2 class="label">About</h2>
+      <p>
+        Frontend engineer interested in JavaScript, web technologies, and building things for the
+        web.
+      </p>
+      <p class="muted">
+        I write about engineering, things I’m learning, and the ideas behind the tools we use.
+      </p>
+      <p><a href="/about/">More about me →</a></p>
+    </aside>
+
+    <section class="writing">
+      <h2 class="label">Writing</h2>
+      <ul class="post-list">
+        {
+          posts.map((post) => (
+            <BlogPost
+              url={post.url}
+              title={post.frontmatter.title}
+              pubDate={post.frontmatter.pubDate}
+            />
+          ))
+        }
+      </ul>
+
+      <div class="greeting">
+        <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
+      </div>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .home {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .home {
+      grid-template-columns: minmax(0, 1fr) 240px;
+      gap: 3rem;
+    }
+
+    .writing {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .bio {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      position: sticky;
+      top: 2rem;
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--rule);
+    }
+  }
+
+  .label {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .bio p {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .bio p:first-of-type {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .greeting {
+    margin-top: 2.5rem;
+  }
+
+  .greeting :global(h3) {
+    margin-top: 0;
+  }
+
+  .greeting :global(button) {
+    background: var(--red);
+    color: var(--cream);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-weight: 600;
+  }
+
+  .greeting :global(button:hover) {
+    background: var(--yellow);
+    color: #2b1b14;
+  }
+</style>

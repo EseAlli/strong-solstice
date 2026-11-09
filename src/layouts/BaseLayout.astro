@@ -3,7 +3,8 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
-const { pageTitle } = Astro.props;
+const { pageTitle, description = "Frontend engineer writing about JavaScript, web technologies and the ideas behind the tools we use.", showTitle = true } =
+  Astro.props;
 ---
 
 <html lang="en">
@@ -11,17 +12,27 @@ const { pageTitle } = Astro.props;
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
     <title>{pageTitle}</title>
   </head>
   <body>
-    <Header />
-    <h1>{pageTitle}</h1>
+    <div class="card">
+      <Header />
+      <main>
+        {showTitle && <h2 class="page-title">{pageTitle}</h2>}
         <slot />
-    <Footer />
-    <script>
-        import "../scripts/menu.js";
-    </script>
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
+
+<style>
+  .page-title {
+    margin-top: 0;
+    font-size: 2rem;
+  }
+</style>

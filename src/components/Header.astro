@@ -1,21 +1,41 @@
 ---
-import Menu from './Menu.astro';
-import Navigation from './Navigation.astro';
-import ThemeIcon from './ThemeIcon.astro';
+import Navigation from "./Navigation.astro";
+import ThemeIcon from "./ThemeIcon.astro";
 ---
 <header>
-  <nav>
-    <div>
-      <ThemeIcon />
-      <Menu />
-    </div>
+  <h1><a href="/">Ese Alli</a></h1>
+  <div class="controls">
     <Navigation />
-  </nav>
+    <ThemeIcon />
+  </div>
 </header>
 
 <style>
-  div {
+  header {
     display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
     justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2.25rem;
+    font-weight: 800;
+  }
+
+  h1 a {
+    color: var(--heading);
+    text-decoration: none;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 </style>

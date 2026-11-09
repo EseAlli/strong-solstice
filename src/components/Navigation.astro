@@ -1,7 +1,36 @@
-<!-- Code fences are optional if you do not have any code to include -->
-<div id="main-menu" class="nav-links">
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/blog/">Blog</a>
-  <a href="/tags/">Tags</a>
-</div>
+---
+const links = [
+  { href: "/blog/", label: "Writing" },
+  { href: "/tags/", label: "Tags" },
+  { href: "/about/", label: "About" },
+];
+const path = Astro.url.pathname;
+---
+
+<nav aria-label="Main">
+  {
+    links.map(({ href, label }) => (
+      <a href={href} aria-current={path.startsWith(href) ? "page" : undefined}>
+        {label}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  a {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--muted);
+  }
+
+  a:hover,
+  a[aria-current="page"] {
+    color: var(--heading);
+  }
+</style>
