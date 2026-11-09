@@ -1,6 +1,9 @@
 ---
-const {url, title} = Astro.props;
+import { isoDate, shortDate } from "../lib/posts";
+const { url, title, pubDate } = Astro.props;
 ---
+
 <li>
-    <a href={url}>{title}</a>
+  <time datetime={isoDate(pubDate)}>{shortDate(pubDate)}</time>
+  <a href={url}>{title}</a>
 </li>
