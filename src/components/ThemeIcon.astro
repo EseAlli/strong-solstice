@@ -26,9 +26,14 @@
   #themeToggle {
     border: 0;
     background: none;
+    padding: 0;
+    display: flex;
+  }
+  svg {
+    width: 22px;
   }
   .sun {
-    fill: black;
+    fill: var(--red);
   }
   .moon {
     fill: transparent;
@@ -38,7 +43,7 @@
     fill: transparent;
   }
   :global(.dark) .moon {
-    fill: white;
+    fill: var(--yellow);
   }
 </style>
 
